@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form đăng ký</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body>
+  <div class="container my-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-header">Form đăng ký</div>
+          <div class="card-body">
+            <form id="signup-form">
+              <div class="form-group">
+                <label for="username">Tên đăng nhập:</label>
+                <input type="text" class="form-control" id="username" name="username">
+              </div>
+              <div class="form-group">
+                <label for="email">Địa chỉ email:</label>
+                <input type="email" class="form-control" id="email" name="email">
+              </div>
+              <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" class="form-control" id="password" name="password">
+              </div>
+              <div class="form-group">
+                <label for="confirm_password">Xác nhận mật khẩu:</label>
+                <input type="password" class="form-control" id="confirm_password" name="confirm_password">
+              </div>
+              <button type="submit" class="btn btn-primary">Đăng ký</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(function() {
+      // Handle form submit event
+      $("#signup-form").submit(function(event) {
+        event.preventDefault();
+        
+        // Get form data
+        var username = $("#username").val();
+        var email = $("#email").val();
+        var password = $("#password").val();
+        var confirm_password = $("#confirm_password").val();
+        
+        // Validate form data
+        if (username.trim() === "") {
+          alert("Tên đăng nhập không được để trống!");
+          return;
+        }
+        if (email.trim() === "") {
+          alert("Địa chỉ email không được để trống!");
+          return;
+        }
+        if (password.trim() === "") {
+          alert("Mật khẩu không được để trống!");
+          return;
+        }
+        if (password !== confirm_password) {
+          alert("Mật khẩu xác nhận không khớp!");
+          return;
+        }
+        
+        // Create user object
+        var user = {
+          username: username,
+          email: email,
+          password: password
+        };
+        
+        // Save user object to local storage
+        localStorage.setItem(username, JSON.stringify(user));
+        
+        // Display success message
+        alert("Đăng ký thành công!");
+        
+        // Reset form
+        $("#signup-form")[0].reset();
+      });
+    });
+  </script>
+</body>
+</html>
